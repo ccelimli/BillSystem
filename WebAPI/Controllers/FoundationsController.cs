@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,32 +8,32 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BillsController : ControllerBase
+    public class FoundationsController : ControllerBase
     {
-        IBillService _billService;
+        IFoundationService _foundationService;
 
-        public BillsController(IBillService billService)
+        public FoundationsController(IFoundationService foundationService)
         {
-            _billService = billService;
+            _foundationService = foundationService;
         }
 
         //Add
         [HttpPost("add")]
-        public IActionResult Add(Bill bill)
+        public IActionResult Add(Foundation foundation)
         {
-            var result = _billService.Add(bill);
+            var result = _foundationService.Add(foundation);
             if (result.Success)
             {
                 return Ok(result);
-            };
+            }
             return BadRequest(result);
         }
 
         //Delete
         [HttpDelete("delete")]
-        public IActionResult Delete(Bill bill)
+        public IActionResult Delete(Foundation foundation)
         {
-            var result = _billService.Delete(bill);
+            var result = _foundationService.Delete(foundation);
             if (result.Success)
             {
                 return Ok(result);
@@ -42,9 +43,9 @@ namespace WebAPI.Controllers
 
         //GetAll
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public IActionResult GetAll(Foundation foundation)
         {
-            var result = _billService.GetAll();
+            var result = _foundationService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -56,7 +57,7 @@ namespace WebAPI.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
-            var result = _billService.GetById(id);
+            var result = _foundationService.GetById(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -66,9 +67,8 @@ namespace WebAPI.Controllers
 
         //Update
         [HttpPut("update")]
-        public IActionResult Update(Bill bill)
-        {
-            var result= _billService.Update(bill);
+        public IActionResult Update(Foundation foundation) {
+            var result = _foundationService.Update(foundation);
             if (result.Success)
             {
                 return Ok(result);

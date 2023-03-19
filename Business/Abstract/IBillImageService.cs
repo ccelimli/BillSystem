@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Result.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace Business.Abstract
 {
     public interface IBillImageService 
     {
-        IResult Add(BillImage billImage);
+        IResult Add(IFormFile file,BillImage billImage);
         IResult Delete(BillImage billImage);
-        IResult Update(BillImage billImage);
+        IResult Update(IFormFile file, BillImage billImage);
         IDataResult<BillImage> GetById(int id);
         IDataResult<List<BillImage>> GetAll();
     }

@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,32 +8,31 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BillsController : ControllerBase
+    public class BanksController : ControllerBase
     {
-        IBillService _billService;
-
-        public BillsController(IBillService billService)
+        IBankService _bankService;
+        public BanksController(IBankService bankService)
         {
-            _billService = billService;
+            _bankService = bankService;
         }
 
         //Add
         [HttpPost("add")]
-        public IActionResult Add(Bill bill)
+        public IActionResult Add(Bank bank)
         {
-            var result = _billService.Add(bill);
+            var result = _bankService.Add(bank);
             if (result.Success)
             {
                 return Ok(result);
-            };
+            }
             return BadRequest(result);
         }
 
         //Delete
         [HttpDelete("delete")]
-        public IActionResult Delete(Bill bill)
+        public IActionResult Delete(Bank bank)
         {
-            var result = _billService.Delete(bill);
+            var result = _bankService.Delete(bank);
             if (result.Success)
             {
                 return Ok(result);
@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _billService.GetAll();
+            var result = _bankService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -53,10 +53,10 @@ namespace WebAPI.Controllers
         }
 
         //GetById
-        [HttpGet("getbyid")]
-        public IActionResult GetById(int id)
+        [HttpGet("get")]
+        public IActionResult getById(int id)
         {
-            var result = _billService.GetById(id);
+            var result = _bankService.GetById(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -66,10 +66,9 @@ namespace WebAPI.Controllers
 
         //Update
         [HttpPut("update")]
-        public IActionResult Update(Bill bill)
-        {
-            var result= _billService.Update(bill);
-            if (result.Success)
+        public IActionResult update(Bank bank) {
+            var result=_bankService.Update(bank);
+            if(result.Success)
             {
                 return Ok(result);
             }

@@ -5,34 +5,33 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
-    public class BillsController : ControllerBase
+    public class UsersControllers : ControllerBase
     {
-        IBillService _billService;
-
-        public BillsController(IBillService billService)
+        IUserService _userService;
+        public UsersControllers(IUserService userService)
         {
-            _billService = billService;
+            _userService = userService;
         }
 
         //Add
         [HttpPost("add")]
-        public IActionResult Add(Bill bill)
+        public IActionResult Add(User user)
         {
-            var result = _billService.Add(bill);
+            var result = _userService.Add(user);
             if (result.Success)
             {
                 return Ok(result);
-            };
+            }
             return BadRequest(result);
         }
 
         //Delete
         [HttpDelete("delete")]
-        public IActionResult Delete(Bill bill)
+        public IActionResult Delete(User user)
         {
-            var result = _billService.Delete(bill);
+            var result = _userService.Delete(user);
             if (result.Success)
             {
                 return Ok(result);
@@ -44,7 +43,7 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _billService.GetAll();
+            var result = _userService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -56,7 +55,7 @@ namespace WebAPI.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
-            var result = _billService.GetById(id);
+            var result = _userService.GetById(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -66,9 +65,8 @@ namespace WebAPI.Controllers
 
         //Update
         [HttpPut("update")]
-        public IActionResult Update(Bill bill)
-        {
-            var result= _billService.Update(bill);
+        public IActionResult Update(User user) {
+            var result = _userService.Update(user);
             if (result.Success)
             {
                 return Ok(result);

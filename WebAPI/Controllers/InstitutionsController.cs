@@ -7,32 +7,29 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BillsController : ControllerBase
+    public class InstitutionsController : ControllerBase
     {
-        IBillService _billService;
+        IInstitutionService _instutionService;
 
-        public BillsController(IBillService billService)
+        public InstitutionsController(IInstitutionService institutionService)
         {
-            _billService = billService;
+            _instutionService = institutionService;
         }
 
         //Add
         [HttpPost("add")]
-        public IActionResult Add(Bill bill)
-        {
-            var result = _billService.Add(bill);
-            if (result.Success)
-            {
+        public IActionResult Add(Institution institution) { 
+            var result=_instutionService.Add(institution);
+            if (result.Success) {
                 return Ok(result);
-            };
+            }
             return BadRequest(result);
         }
 
         //Delete
         [HttpDelete("delete")]
-        public IActionResult Delete(Bill bill)
-        {
-            var result = _billService.Delete(bill);
+        public IActionResult Delete(Institution institution) { 
+        var result=_instutionService.Delete(institution);
             if (result.Success)
             {
                 return Ok(result);
@@ -42,11 +39,9 @@ namespace WebAPI.Controllers
 
         //GetAll
         [HttpGet("getall")]
-        public IActionResult GetAll()
-        {
-            var result = _billService.GetAll();
-            if (result.Success)
-            {
+        public IActionResult GetAll() {
+            var result=_instutionService.GetAll();
+            if (result.Success) {
                 return Ok(result);
             }
             return BadRequest(result);
@@ -54,9 +49,8 @@ namespace WebAPI.Controllers
 
         //GetById
         [HttpGet("getbyid")]
-        public IActionResult GetById(int id)
-        {
-            var result = _billService.GetById(id);
+        public IActionResult GetById(int id) {
+            var result=_instutionService.GetById(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -66,9 +60,9 @@ namespace WebAPI.Controllers
 
         //Update
         [HttpPut("update")]
-        public IActionResult Update(Bill bill)
+        public IActionResult Update(Institution institution)
         {
-            var result= _billService.Update(bill);
+             var result=_instutionService.Update(institution);
             if (result.Success)
             {
                 return Ok(result);

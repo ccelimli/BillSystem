@@ -50,6 +50,7 @@ namespace Business.Concrete
             return new SuccessDataResult<Category>(_categoryDal.Get(c=>c.Id==id), Messages.CategoryListed);
         }
 
+        [ValidationAspect(typeof(CategoryValidator))]
         //Update
         public IResult Update(Category category)
         {

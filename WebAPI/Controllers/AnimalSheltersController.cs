@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/animalshelters")]
     [ApiController]
     public class AnimalSheltersController : ControllerBase
     {
@@ -41,11 +41,12 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        //GetAnimalSheltersDetails
         [HttpGet("getanimalshelterdetails")]
         public IActionResult GetAnimalShelterDetails()
         {
             var result = _animalShelterService.GetAnimalShelterDetails();
-            if (result.Data.Count==0)
+            if (result.Data.Count == 0)
             {
                 return BadRequest(Messages.NotFoundaData);
             }
@@ -59,6 +60,7 @@ namespace WebAPI.Controllers
             }
         }
 
+        //GetAll
         [HttpGet("getall")]
         public IActionResult Getall()
         {
@@ -75,6 +77,29 @@ namespace WebAPI.Controllers
                 }
                 return BadRequest(result);
             }
+        }
+
+        //GetById
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int Id)
+        {
+            var result=_animalShelterService.GetById(Id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        //Update
+        [HttpPut("update")]
+        public IActionResult Update(AnimalShelter animalShelter)
+        {
+            var result = _animalShelterService.Update(animalShelter);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
     }
 }

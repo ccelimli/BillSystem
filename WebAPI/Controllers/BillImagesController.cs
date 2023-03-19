@@ -7,32 +7,33 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BillsController : ControllerBase
+    public class BillImagesController : ControllerBase
     {
-        IBillService _billService;
+        IBillImageService _billImageService;
 
-        public BillsController(IBillService billService)
+        public BillImagesController(IBillImageService billImageService)
         {
-            _billService = billService;
+            _billImageService = billImageService;
         }
-
+        
         //Add
         [HttpPost("add")]
-        public IActionResult Add(Bill bill)
+        public IActionResult Add([FromForm(Name = "Image")] IFormFile file, [FromForm] BillImage billImage)
         {
-            var result = _billService.Add(bill);
+            var result = _billImageService.Add(file, billImage);
             if (result.Success)
             {
                 return Ok(result);
-            };
+            }
             return BadRequest(result);
         }
 
         //Delete
         [HttpDelete("delete")]
-        public IActionResult Delete(Bill bill)
+        public IActionResult Delete(BillImage billImage)
         {
-            var result = _billService.Delete(bill);
+            var billImageDelete=_billImageService.GetById(billImage.Id).Data;
+            var result = _billImageService.Delete(billImageDelete);
             if (result.Success)
             {
                 return Ok(result);
@@ -44,7 +45,7 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _billService.GetAll();
+            var result= _billImageService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -56,7 +57,7 @@ namespace WebAPI.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
-            var result = _billService.GetById(id);
+            var result = _billImageService.GetById(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -66,9 +67,9 @@ namespace WebAPI.Controllers
 
         //Update
         [HttpPut("update")]
-        public IActionResult Update(Bill bill)
+        public IActionResult Update([FromForm] IFormFile file, [FromForm] BillImage billImage)
         {
-            var result= _billService.Update(bill);
+            var result = _billImageService.Update(file, billImage);
             if (result.Success)
             {
                 return Ok(result);

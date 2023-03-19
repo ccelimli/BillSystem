@@ -23,7 +23,7 @@ namespace Business.ValidationRules.FluentValidation
         //ControlName
         private bool ControlAnimalShelterName(string arg)
         {
-            Regex regex = new Regex(@"^[A-ZİĞÜŞÖÇ][a-zA-ZğüşöçıİĞÜŞÖÇ]*$");
+            Regex regex = new Regex(@"^[A-ZİĞÜŞÖÇ][a-zA-Z0-9ğüşöçıİĞÜŞÖÇ]*$");
             var result = regex.Match(arg);
             if (result.Success)
             {

@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
@@ -23,6 +25,7 @@ namespace Business.Concrete
         }
 
         //Add
+        [ValidationAspect(typeof(AnimalShelterValidator))]
         public IResult Add(AnimalShelter animalShelter)
         {
             _animalShelterDal.Add(animalShelter);
@@ -53,6 +56,7 @@ namespace Business.Concrete
             return new SuccessDataResult<AnimalShelter>(_animalShelterDal.Get(a => a.Id == id), Messages.AnimalShelterListed);
         }
 
+        [ValidationAspect(typeof(AnimalShelterValidator))]
         //Update
         public IResult Update(AnimalShelter animalShelter)
         {

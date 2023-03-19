@@ -7,11 +7,8 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using System;
+using Microsoft.AspNetCore.Http;
 
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -28,8 +25,15 @@ namespace Business.Concrete
 
         //Add
         [ValidationAspect(typeof(BillImageValidator))]
-        public IResult Add(BillImage billImage)
+        public IResult Add(IFormFile file, BillImage billImage)
         {
+            var resultToFileUpload = _imageHelper.Upload(file, PathConstant.ImagePath);
+            if (!resultToFileUpload.Success)
+            {
+                return resultToFileUpload;
+            }
+            billImage.ImagePath = PathConstant.ImagePath;
+            billImage.Date = DateTime.Now;
             _billImageDal.Add(billImage);
             return new SuccessResult(Messages.BillImageAdded);
         }
@@ -37,6 +41,11 @@ namespace Business.Concrete
         //Delete
         public IResult Delete(BillImage billImage)
         {
+            var result = _imageHelper.Delete(PathConstant.ImagePath + billImage.ImagePath);
+            if (!result.Success)
+            {
+                return result;
+            }
             _billImageDal.Delete(billImage);
             return new SuccessResult(Messages.BillImageDeleted);
         }
@@ -54,8 +63,15 @@ namespace Business.Concrete
         }
 
         //Update
-        public IResult Update(BillImage billImage)
+        public IResult Update(IFormFile file, BillImage billImage)
         {
+            var result = _imageHelper.Update(file, PathConstant.ImagePath + billImage.ImagePath, PathConstant.ImagePath);
+            if (!result.Success)
+            {
+                return result;
+            }
+            billImage.Date = DateTime.Now;
+            billImage.ImagePath = PathConstant.ImagePath;
             _billImageDal.Update(billImage);
             return new SuccessResult(Messages.BillImageUpdated);
         }

@@ -7,32 +7,32 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BillsController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
-        IBillService _billService;
+        ICategoryService _categoryService;
 
-        public BillsController(IBillService billService)
+        public CategoriesController(ICategoryService categoryService)
         {
-            _billService = billService;
+            _categoryService = categoryService;
         }
 
         //Add
         [HttpPost("add")]
-        public IActionResult Add(Bill bill)
+        public IActionResult Add(Category category)
         {
-            var result = _billService.Add(bill);
+            var result = _categoryService.Add(category);
             if (result.Success)
             {
                 return Ok(result);
-            };
+            }
             return BadRequest(result);
         }
 
         //Delete
         [HttpDelete("delete")]
-        public IActionResult Delete(Bill bill)
+        public IActionResult Delete(Category category)
         {
-            var result = _billService.Delete(bill);
+            var result = _categoryService.Delete(category);
             if (result.Success)
             {
                 return Ok(result);
@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _billService.GetAll();
+            var result = _categoryService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -54,21 +54,22 @@ namespace WebAPI.Controllers
 
         //GetById
         [HttpGet("getbyid")]
-        public IActionResult GetById(int id)
+        public IActionResult Get(int id)
         {
-            var result = _billService.GetById(id);
+            var result = _categoryService.GetById(id);
             if (result.Success)
             {
                 return Ok(result);
             }
+
             return BadRequest(result);
         }
 
         //Update
         [HttpPut("update")]
-        public IActionResult Update(Bill bill)
+        public IActionResult Update(Category category)
         {
-            var result= _billService.Update(bill);
+            var result = _categoryService.Update(category);
             if (result.Success)
             {
                 return Ok(result);

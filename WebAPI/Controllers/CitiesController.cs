@@ -28,7 +28,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("delete")]
+        //Delete
+        [HttpDelete("delete")]
         public IActionResult Delete(City city)
         {
             var result = _cityService.Delete(city);
@@ -39,10 +40,35 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        //GetAll
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
             var result = _cityService.GetAll();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        //GetById
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int id)
+        {
+            var result = _cityService.GetById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        //Update
+        [HttpPut("update")]
+        public IActionResult Update(City city)
+        {
+            var result=_cityService.Update(city);
             if (result.Success)
             {
                 return Ok(result);
