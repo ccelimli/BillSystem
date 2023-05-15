@@ -9,16 +9,16 @@ namespace WebAPI.Controllers
     [ApiController]
     public class FagsController : ControllerBase
     {
-        IFagService _fagService;
+        IFaqService _fagService;
 
-        public FagsController(IFagService fagService)
+        public FagsController(IFaqService fagService)
         {
             _fagService = fagService;
         }
 
         //Add
         [HttpPost("add")]
-        public IActionResult Add(Fag fag)
+        public IActionResult Add(Faq fag)
         {
             var result = _fagService.Add(fag);
             if (result.Success)
@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
 
         //Delete
         [HttpDelete("delete")]
-        public IActionResult Delete(Fag fag)
+        public IActionResult Delete(Faq fag)
         {
             var result = _fagService.Delete(fag);
             if (result.Success)
@@ -66,7 +66,7 @@ namespace WebAPI.Controllers
 
         //Update
         [HttpPut("update")]
-        public IActionResult Update(Fag fag)
+        public IActionResult Update(Faq fag)
         {
             var result=_fagService.Update(fag);
             if (result.Success)

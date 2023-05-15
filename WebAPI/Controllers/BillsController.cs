@@ -52,6 +52,18 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        //GetDetails
+        [HttpGet("getbilldetails")]
+        public IActionResult GetBillDetails()
+        {
+            var result=_billService.GetBillDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         //GetById
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
@@ -64,6 +76,30 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        //GetByCategoryId
+        [HttpGet("getbycategoryid")]
+        public IActionResult GetCategoryById(int categoryId)
+        {
+            var result = _billService.GetCategoryById(categoryId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        //GetDetailByCategoryId
+        [HttpGet("getdetailbycategoryid")]
+        public IActionResult GetDetailByCategoryId(int categoryId)
+        {
+            var result=_billService.GetBillDetailsByCategoryId(categoryId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        
         //Update
         [HttpPut("update")]
         public IActionResult Update(Bill bill)
@@ -75,5 +111,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        
     }
 }

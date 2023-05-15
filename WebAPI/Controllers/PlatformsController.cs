@@ -10,7 +10,6 @@ namespace WebAPI.Controllers
     public class PlatformsController : ControllerBase
     {
         IPlatformService _platformService;
-
         public PlatformsController(IPlatformService platformService)
         {
             _platformService = platformService;

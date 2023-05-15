@@ -12,6 +12,7 @@ namespace DataAccess.Abstract
     public interface IBillDal : IEntityRepository<Bill>
     {
         List<BillDetailDto> GetBillDetails();
+        List<BillDetailDto> GetBillDetailsByCategoryId(int categoryId);
         List<BillDetailPrivateDto> GetBillDetailPrivate();
     }
 }

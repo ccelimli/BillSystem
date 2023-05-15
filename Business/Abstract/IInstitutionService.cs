@@ -1,4 +1,4 @@
-﻿using Core.Utilities.Result.Abstract;
+﻿using Core.Utilities.Results.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -14,6 +14,7 @@ namespace Business.Abstract
         IResult Delete(Institution institution);
         IResult Update(Institution institution);
         IDataResult<Institution> GetById(int id);
+        IDataResult<List<Institution>> GetByCategoryId(int categoryId);
         IDataResult<List<Institution>> GetAll();
     }
 }

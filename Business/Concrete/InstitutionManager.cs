@@ -1,7 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
-using Core.Utilities.Result.Abstract;
-using Core.Utilities.Result.Concrete;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -39,6 +39,11 @@ namespace Business.Concrete
         public IDataResult<List<Institution>> GetAll()
         {
             return new SuccessDataResult<List<Institution>>(_institutionDal.GetAll(),Messages.InstitutionsListed);
+        }
+
+        public IDataResult<List<Institution>> GetByCategoryId(int categoryId)
+        {
+            return new SuccessDataResult<List<Institution>>(_institutionDal.GetAll(institution=>institution.CategoryId==categoryId));
         }
 
         //GetById

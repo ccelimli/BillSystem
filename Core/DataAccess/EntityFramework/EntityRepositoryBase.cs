@@ -9,17 +9,16 @@ using System.Threading.Tasks;
 
 namespace Core.DataAccess.EntityFramework
 {
-    public class EntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity> where TEntity : class, IEntity, new()
+    public class EntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity> where TEntity : class, IEntity, new() 
                                                                                       where TContext : DbContext, new()
     {
-        //Add
         public void Add(TEntity entity)
         {
             using (TContext context = new TContext())
             {
                 var addedEntity = context.Entry(entity);
                 addedEntity.State = EntityState.Added;
-                context.SaveChanges();
+                context.SaveChanges(); // Bu method aslında Add dışında başka bir işlem yaparsak hepsini kaydet ve son olarak veri tabanına kaydet demektir.
             }
         }
 

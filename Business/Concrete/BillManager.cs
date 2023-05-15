@@ -1,9 +1,10 @@
 ﻿using Business.Abstract;
 using Business.Constants;
-using Core.Utilities.Result.Abstract;
-using Core.Utilities.Result.Concrete;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,11 +42,40 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Bill>>(_billDal.GetAll(),Messages.BillsListed); 
         }
 
+        public IDataResult<List<BillDetailDto>> GetBillDetails()
+        {
+            try
+            {
+                return new SuccessDataResult<List<BillDetailDto>>(_billDal.GetBillDetails(),Messages.BillsListed);
+            }catch (Exception ex) {
+                return new ErrorDataResult<List<BillDetailDto>>(Messages.Error);
+            }
+        }
+
+        public IDataResult<List<BillDetailDto>> GetBillDetailsByCategoryId(int categoryId)
+        {
+            try
+            {
+                return new SuccessDataResult<List<BillDetailDto>>(_billDal.GetBillDetailsByCategoryId(categoryId), Messages.BillListed);
+            }
+            catch
+            {
+                return new ErrorDataResult<List<BillDetailDto>>(Messages.Error);
+            }
+        }
+
         //GetById
         public IDataResult<Bill> GetById(int id)
         {
             return new SuccessDataResult<Bill>(_billDal.Get(b => b.Id == id), Messages.BillListed);
         }
+
+        public IDataResult<List<Bill>> GetCategoryById(int categoryId)
+        {
+            return new SuccessDataResult<List<Bill>>(_billDal.GetAll(b => b.CategoryId == categoryId), Messages.BillListed);
+        }
+
+        
 
         //Update
         public IResult Update(Bill bill)

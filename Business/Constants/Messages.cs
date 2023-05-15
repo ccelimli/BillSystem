@@ -50,12 +50,12 @@ namespace Business.Constants
         public static string CityListed = "Şehir Listelendi.";
         public static string CitiesListed = "Şehirler Listelendi.";
 
-        //FAG
-        public static string FagAdded = "SSS Eklendi.";
-        public static string FagDeleted = "SSS Silindi.";
-        public static string FagUpdated = "SSS bilgileri güncellendi.";
-        public static string FagListed = "SSS Listelendi.";
-        public static string FagsListed = "SSS'ler Listelendi.";
+        //FAQ
+        public static string FaqAdded = "SSS Eklendi.";
+        public static string FaqDeleted = "SSS Silindi.";
+        public static string FaqUpdated = "SSS bilgileri güncellendi.";
+        public static string FaqListed = "SSS Listelendi.";
+        public static string FaqsListed = "SSS'ler Listelendi.";
 
         //Foundation
         public static string FoundationAdded = "Yardım Kuruluşu Eklendi.";
@@ -84,6 +84,10 @@ namespace Business.Constants
         public static string UserUpdated = "Kullanıcı bilgileri güncellendi.";
         public static string UserListed = "Kullanıcı Listelendi.";
         public static string UsersListed = "Kullanıcılar Listelendi.";
+        public static string UserNotFound = "Kullanıcı Bulunamadı"!;
+        public static string InvalidPassword = "Geçersiz Parola!";
+        public static string AlreadyRegistedNationalityNo = "Bu kimlik numarasına ait bir kayıt bulunmaktadır!";
+
 
         //System
         public static string SuccessfulLogin = "Giriş Başarılı";
@@ -91,5 +95,6 @@ namespace Business.Constants
         public static string AccessTokenCreated = "Token Oluşturuldu";
         public static string AuthorizationDenied = "Yetkiniz Yok";
         public static string NotFoundaData = "Herhangi bir veri bulunamadı!";
+        public static string Error = "Bir hata oluştu!";
     }
 }

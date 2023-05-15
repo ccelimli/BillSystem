@@ -3,11 +3,7 @@ using DataAccess.Abstract;
 using DataAccess.Context;
 using Entities.Concrete;
 using Entities.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace DataAccess.Concrete.EntityRepository
 {
@@ -62,6 +58,9 @@ namespace DataAccess.Concrete.EntityRepository
                                     select new BillDetailDto
                                     {
                                         Id = bill.Id,
+                                        CategoryId = category.Id,
+                                        CityId = city.Id,
+                                        InstitutionId = institution.Id,
                                         CategoryName = category.Name,
                                         CityName = city.Name,
                                         InstitutionName = institution.Name,
@@ -69,6 +68,39 @@ namespace DataAccess.Concrete.EntityRepository
                                         InvoiceDate = bill.InvoiceDate,
                                         DateOfLastPayment = bill.InvoiceDate,
                                         InvoiceValue = bill.InvoiceValue,
+                                        Website = institution.Website,
+                                        Status = bill.Status,
+                                    };
+                return GetBillDetail.ToList();
+            }
+        }
+
+        public List<BillDetailDto> GetBillDetailsByCategoryId(int categoryId)
+        {
+            using (BillSystemContext context = new BillSystemContext())
+            {
+                var GetBillDetail = from bill in context.Bills
+                                    join category in context.Categories
+                                    on bill.CategoryId equals category.Id
+                                    join city in context.Cities
+                                    on bill.CityId equals city.Id
+                                    join institution in context.Institutions
+                                    on bill.InstitutionId equals institution.Id
+                                    where bill.CategoryId == categoryId
+                                    select new BillDetailDto
+                                    {
+                                        Id = bill.Id,
+                                        CategoryId = category.Id,
+                                        CityId = city.Id,
+                                        InstitutionId = institution.Id,
+                                        CategoryName = category.Name,
+                                        CityName = city.Name,
+                                        InstitutionName = institution.Name,
+                                        ContractNo = bill.ContractNo,
+                                        InvoiceDate = bill.InvoiceDate,
+                                        DateOfLastPayment = bill.InvoiceDate,
+                                        InvoiceValue = bill.InvoiceValue,
+                                        Website=institution.Website,
                                         Status = bill.Status,
                                     };
                 return GetBillDetail.ToList();

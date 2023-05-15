@@ -1,15 +1,14 @@
 ﻿using Core.Utilities.Helper.GuidHelper;
-using Core.Utilities.Helper.ImageHelper.Abstract;
-using Core.Utilities.Result.Abstract;
-using Core.Utilities.Result.Concrete;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace Core.Utilities.Helper.ImageHelper.Concrete
+namespace Core.Utilities.Helper
 {
     public class ImageHelper : IImageHelper
     {

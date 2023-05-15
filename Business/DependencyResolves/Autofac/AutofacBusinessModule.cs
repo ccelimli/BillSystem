@@ -3,8 +3,10 @@ using Autofac.Extras.DynamicProxy;
 using Business.Abstract;
 using Business.Concrete;
 using Castle.DynamicProxy;
-using Core.Utilities.Helper.ImageHelper.Concrete;
+using Core.Utilities.Helper;
 using Core.Utilities.Interceptors;
+using Core.Utilities.Security.JWT.Abstract;
+using Core.Utilities.Security.JWT.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityRepository;
 using System;
@@ -19,6 +21,14 @@ namespace Business.DependencyResolves.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
+//Auth
+            builder.RegisterType<AuthManager>().As<IAuthService>();
+
+            //FileHelper
+            builder.RegisterType<ImageHelper>().As<IImageHelper>().SingleInstance();
+
+            //JWT
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();
             //AnimalShelter
             builder.RegisterType<AnimalShelterManager>().As<IAnimalShelterService>().SingleInstance();
             builder.RegisterType<AnimalShelterDal>().As<IAnimalShelterDal>().SingleInstance();
@@ -44,8 +54,8 @@ namespace Business.DependencyResolves.Autofac
             builder.RegisterType<CityDal>().As<ICityDal>().SingleInstance();
 
             //Fag
-            builder.RegisterType<FagManager>().As<IFagService>().SingleInstance();
-            builder.RegisterType<FagDal>().As<IFagDal>().SingleInstance();
+            builder.RegisterType<FaqManager>().As<IFaqService>().SingleInstance();
+            builder.RegisterType<FaqDal>().As<IFaqDal>().SingleInstance();
 
             //Foundation
             builder.RegisterType<FoundationManager>().As<IFoundationService>().SingleInstance();

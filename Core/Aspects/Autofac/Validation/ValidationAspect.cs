@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Core.Aspects.Autofac.Validation
 {
+
     public class ValidationAspect : MethodInterception
     {
         private Type _validatorType;

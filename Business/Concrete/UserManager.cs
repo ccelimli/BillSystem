@@ -1,15 +1,10 @@
 ﻿using Business.Abstract;
 using Business.Constants;
-using Core.Utilities.Result.Abstract;
-using Core.Utilities.Result.Concrete;
+using Core.Entities.Concrete;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
-using DataAccess.Concrete.EntityRepository;
 using Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -42,10 +37,25 @@ namespace Business.Concrete
             return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.UsersListed);
         }
 
+        public IDataResult<User> GetByEmail(string email)
+        {
+            return new SuccessDataResult<User>(_userDal.Get(user=>user.Email==email),Messages.UserListed);
+        }
+
         //GetById
         public IDataResult<User> GetById(int id)
         {
             return new SuccessDataResult<User>(_userDal.Get(u => u.Id == id), Messages.UserListed);
+        }
+
+        public IDataResult<User> GetByNationalityNo(string nationalityNo)
+        {
+            return new SuccessDataResult<User>(_userDal.Get(user => user.NationalityNo == nationalityNo));
+        }
+
+        public IDataResult<User> GetByPhoneNumber(string phoneNumber)
+        {
+            return new SuccessDataResult<User>(_userDal.Get(user=>user.PhoneNumber==phoneNumber),Messages.UserListed);
         }
 
         //Update
@@ -53,6 +63,11 @@ namespace Business.Concrete
         {
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
+        }
+
+        public IDataResult<List<OperationClaim>> GetClaims(User user)
+        {
+            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
         }
     }
 }

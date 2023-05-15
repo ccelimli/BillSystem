@@ -1,5 +1,6 @@
-﻿using Core.Utilities.Result.Abstract;
+﻿using Core.Utilities.Results.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,8 @@ namespace Business.Abstract
         IResult Update(Bill bill);
         IDataResult<Bill> GetById(int id);
         IDataResult<List<Bill>> GetAll();
+        IDataResult<List<BillDetailDto>> GetBillDetails();
+        IDataResult<List<Bill>> GetCategoryById(int categoryId);
+        IDataResult<List<BillDetailDto>> GetBillDetailsByCategoryId(int categoryId);
     }
 }

@@ -10,7 +10,7 @@ namespace Entities.Concrete
     public class Institution : IEntity
     {
         public int Id { get; set; }
-        public int CityId { get; set; }
+        public int CategoryId { get; set; }
         public string Name { get; set; }
         public string Website { get; set; }
     }
