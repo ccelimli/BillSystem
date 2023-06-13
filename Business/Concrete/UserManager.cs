@@ -8,7 +8,7 @@ using Entities.Concrete;
 
 namespace Business.Concrete
 {
-    public class UserManager:IUserService
+    public class UserManager : IUserService
     {
         IUserDal _userDal;
 
@@ -39,7 +39,7 @@ namespace Business.Concrete
 
         public IDataResult<User> GetByEmail(string email)
         {
-            return new SuccessDataResult<User>(_userDal.Get(user=>user.Email==email),Messages.UserListed);
+            return new SuccessDataResult<User>(_userDal.Get(user => user.Email == email), Messages.UserListed);
         }
 
         //GetById
@@ -55,7 +55,7 @@ namespace Business.Concrete
 
         public IDataResult<User> GetByPhoneNumber(string phoneNumber)
         {
-            return new SuccessDataResult<User>(_userDal.Get(user=>user.PhoneNumber==phoneNumber),Messages.UserListed);
+            return new SuccessDataResult<User>(_userDal.Get(user => user.PhoneNumber == phoneNumber), Messages.UserListed);
         }
 
         //Update
@@ -67,7 +67,13 @@ namespace Business.Concrete
 
         public IDataResult<List<OperationClaim>> GetClaims(User user)
         {
-            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
+            var operationResult = _userDal?.GetClaims(user);
+            return new SuccessDataResult<List<OperationClaim>>(operationResult);
+        }
+
+        public IDataResult<User> setOperationClaim(User user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

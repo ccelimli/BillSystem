@@ -19,6 +19,7 @@ namespace Business.Abstract
         IDataResult<User> GetByPhoneNumber(string phoneNumber);
         IDataResult<User> GetByNationalityNo(string nationalityNo);
         IDataResult<List<User>> GetAll();
+        IDataResult<User> setOperationClaim(User user);
         IDataResult<List<OperationClaim>> GetClaims(User user);
     }
 }

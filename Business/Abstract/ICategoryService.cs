@@ -14,6 +14,7 @@ namespace Business.Abstract
         IResult Delete(Category category);
         IResult Update(Category category);
         IDataResult<Category> GetById(int id);
+        IDataResult<List<Category>> GetByPlatformId(int platformId);
         IDataResult<List<Category>> GetAll();
     }
 }

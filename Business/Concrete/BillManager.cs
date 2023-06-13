@@ -1,5 +1,9 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspect.Autofac;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -23,10 +27,20 @@ namespace Business.Concrete
         }
 
         //Add
+        [ValidationAspect(typeof(BillValidator))]        
+       // [SecuredOperation("user,admin")]
         public IResult Add(Bill bill)
         {
-            _billDal.Add(bill);
-            return new SuccessResult(Messages.BillAdded);
+            try
+            {
+                _billDal.Add(bill);
+                return new SuccessResult(Messages.BillAdded);
+            }
+            catch (Exception err)
+            {
+                return new ErrorResult(err.Message);
+            }
+            
         }
 
         //Delete
@@ -39,7 +53,16 @@ namespace Business.Concrete
         //GetAll
         public IDataResult<List<Bill>> GetAll()
         {
-            return new SuccessDataResult<List<Bill>>(_billDal.GetAll(),Messages.BillsListed); 
+            try
+            {
+                return new SuccessDataResult<List<Bill>>(_billDal.GetAll(), Messages.BillsListed);
+            }
+            catch (Exception err)
+            {
+
+                return new ErrorDataResult<List<Bill>>(err.Message);
+            }
+            
         }
 
         public IDataResult<List<BillDetailDto>> GetBillDetails()

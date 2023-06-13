@@ -50,6 +50,12 @@ namespace Business.Concrete
             return new SuccessDataResult<Category>(_categoryDal.Get(c=>c.Id==id), Messages.CategoryListed);
         }
 
+        //GetByPlatformId
+        public IDataResult<List<Category>> GetByPlatformId(int platformId)
+        {
+            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(category => category.PlatformId == platformId), Messages.CategoriesListed);
+        }
+
         [ValidationAspect(typeof(CategoryValidator))]
         //Update
         public IResult Update(Category category)

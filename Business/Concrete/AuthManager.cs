@@ -45,6 +45,7 @@ namespace Business.Concrete
                 PasswordSalt = passwordSalt,
                 Status = true
             };
+            
             _userService.Add(user);
             return new SuccessDataResult<User>(user, Messages.UserRegistered);
         }
@@ -52,7 +53,7 @@ namespace Business.Concrete
         // Login
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
-            var userToCheck = _userService.GetByEmail(userForLoginDto.NatiolnalityId).Data;
+            var userToCheck = _userService.GetByNationalityNo(userForLoginDto.NationalityId).Data;
             if (userToCheck == null)
             {
                 return new ErrorDataResult<User>(Messages.UserNotFound);

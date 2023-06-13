@@ -52,7 +52,7 @@ namespace WebAPI.Controllers
         }
 
         //GetById
-        [HttpGet]
+        [HttpGet("getbyid")]
         public IActionResult GetById(int Id)
         {
             var result = _platformService.GetById(Id);

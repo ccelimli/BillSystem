@@ -9,7 +9,7 @@ namespace Entities.DTOs
 {
     public class UserForLoginDto : IDto
     {
-        public string NatiolnalityId { get; set; }
+        public string NationalityId { get; set; }
         public string Password { get; set; }
     }
 }

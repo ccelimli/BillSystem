@@ -65,6 +65,19 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+
+        //GetByPlatformId
+        [HttpGet("getbyplatformid")]
+        public IActionResult GetByPlatformId(int platformId)
+        {
+            var result =_categoryService.GetByPlatformId(platformId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result); 
+        }
+
         //Update
         [HttpPut("update")]
         public IActionResult Update(Category category)

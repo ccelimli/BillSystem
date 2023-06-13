@@ -18,7 +18,7 @@ namespace WebAPI.Controllers
         
         //Add
         [HttpPost("add")]
-        public IActionResult Add([FromForm(Name = "Image")] IFormFile file, [FromForm] BillImage billImage)
+        public IActionResult Add([FromForm(Name = ("image"))] IFormFile file, [FromForm] BillImage billImage)
         {
             var result = _billImageService.Add(file, billImage);
             if (result.Success)

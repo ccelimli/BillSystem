@@ -16,10 +16,17 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterMod
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowOrigin", builder => builder.WithOrigins("https://localhost:4200"));
+//});
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowOrigin", builder => builder.WithOrigins("https://localhost:4200"));
+    options.AddPolicy("AllowOrigin", builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 });
 
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
@@ -56,14 +63,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
-
+app.ConfigureCustomExceptionMiddleware();
+//app.UseMiddleware<ExceptionMiddleware>();
+//app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+
 app.UseStaticFiles();
 
-app.UseAuthentication();
-app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapControllers();
